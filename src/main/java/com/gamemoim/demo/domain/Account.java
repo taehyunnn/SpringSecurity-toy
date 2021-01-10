@@ -14,7 +14,6 @@ import javax.persistence.Id;
 @Getter
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Account extends BaseTimeEntity{
 
     @Id
@@ -29,5 +28,19 @@ public class Account extends BaseTimeEntity{
     private String email;
 
     private String password;
+
+    public Account(String nickName, String email, String password) {
+        this.nickName = nickName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public void changeNickName(String nickName){
+        this.nickName = nickName;
+    }
+
+    public void changePassword(String password){
+        this.password = password;
+    }
 
 }
