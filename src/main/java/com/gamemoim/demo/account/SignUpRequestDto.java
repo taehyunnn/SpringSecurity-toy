@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class SingUpRequestDto {
+public class SignUpRequestDto {
 
     @NotBlank
     @Length(min = 3, max = 20)

@@ -1,5 +1,7 @@
 package com.gamemoim.demo.service;
 
+import com.gamemoim.demo.account.LoginRequestDto;
+import com.gamemoim.demo.account.SignUpRequestDto;
 import com.gamemoim.demo.domain.Account;
 import com.gamemoim.demo.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +39,8 @@ public class AccountService implements UserDetailsService {
         return new User(findUser.getEmail(), findUser.getPassword(), authorities);
     }
 
-    public Account save(Account account) {
+    public Account save(SignUpRequestDto requestDto) {
+        Account account = new Account(requestDto.getNickname(), requestDto.getEmail(), requestDto.getPassword());
         account.changePassword(passwordEncoder.encode(account.getPassword()));
         return memberRepository.save(account);
     }
@@ -45,4 +48,5 @@ public class AccountService implements UserDetailsService {
     public Account findByEmail(String email){
         return memberRepository.findByEmail(email);
     }
+
 }

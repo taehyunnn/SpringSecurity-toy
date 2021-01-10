@@ -12,12 +12,12 @@ public class SignUpValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return clazz.isAssignableFrom(SingUpRequestDto.class);
+        return clazz.isAssignableFrom(SignUpRequestDto.class);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        SingUpRequestDto singUpRequestDto = (SingUpRequestDto) target;
+        SignUpRequestDto singUpRequestDto = (SignUpRequestDto) target;
 
         if(accountRepository.existsByEmail((singUpRequestDto).getEmail())){
             errors.rejectValue("email","invalid.email", new Object[]{singUpRequestDto.getEmail()}, "이미 존재하는 이메일입니다");
