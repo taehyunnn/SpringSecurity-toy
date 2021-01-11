@@ -1,8 +1,8 @@
-package com.gamemoim.demo.controller;
+package com.gamemoim.demo.group;
 
-import com.gamemoim.demo.group.GroupCreateRequestDto;
-import com.gamemoim.demo.group.GroupValidator;
-import com.gamemoim.demo.service.GroupService;
+import com.gamemoim.demo.domain.Account;
+import com.gamemoim.demo.domain.Group;
+import com.gamemoim.demo.domain.GroupManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +32,11 @@ public class GroupController {
     }
 
     @PostMapping("/create-group")
-    public String createGroup(@Valid GroupCreateRequestDto requestDto){
+    public String createGroup(@Valid GroupCreateRequestDto requestDto, Account account){
 
-        groupService.createGroup(requestDto);
+        Group group = Group.createGroup(requestDto.getName(), requestDto.getDescription());
+
+        groupService.createGroup(group,account);
 
         return "redirect:/";
     }
