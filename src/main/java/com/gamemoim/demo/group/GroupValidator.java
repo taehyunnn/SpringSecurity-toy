@@ -1,7 +1,6 @@
 package com.gamemoim.demo.group;
 
 import com.gamemoim.demo.domain.Group;
-import com.gamemoim.demo.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

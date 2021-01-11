@@ -1,9 +1,6 @@
-package com.gamemoim.demo.service;
+package com.gamemoim.demo.account;
 
-import com.gamemoim.demo.account.LoginRequestDto;
-import com.gamemoim.demo.account.SignUpRequestDto;
 import com.gamemoim.demo.domain.Account;
-import com.gamemoim.demo.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

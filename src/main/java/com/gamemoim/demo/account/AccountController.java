@@ -1,9 +1,6 @@
-package com.gamemoim.demo.controller;
+package com.gamemoim.demo.account;
 
-import com.gamemoim.demo.account.SignUpRequestDto;
-import com.gamemoim.demo.account.SignUpValidator;
 import com.gamemoim.demo.domain.Account;
-import com.gamemoim.demo.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

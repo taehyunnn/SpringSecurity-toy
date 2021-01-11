@@ -1,6 +1,5 @@
 package com.gamemoim.demo.account;
 
-import com.gamemoim.demo.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -24,7 +23,7 @@ public class SignUpValidator implements Validator {
         if(accountRepository.existsByEmail((singUpRequestDto).getEmail())){
             errors.rejectValue("email","invalid.email", new Object[]{singUpRequestDto.getEmail()}, "이미 존재하는 이메일입니다");
         }
-        if(accountRepository.existsByNickName(singUpRequestDto.getNickname())){
+        if(accountRepository.existsByNickname(singUpRequestDto.getNickname())){
             errors.rejectValue("nickName","invalid.nickName", new Object[]{singUpRequestDto.getNickname()}, "이미 존재하는 닉네임입니다");
         }
     }

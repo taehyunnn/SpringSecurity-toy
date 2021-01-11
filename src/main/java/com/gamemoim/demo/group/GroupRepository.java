@@ -1,4 +1,4 @@
-package com.gamemoim.demo.repository;
+package com.gamemoim.demo.group;
 
 import com.gamemoim.demo.domain.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
