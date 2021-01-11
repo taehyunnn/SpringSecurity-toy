@@ -39,8 +39,7 @@ public class AccountService implements UserDetailsService {
         return new User(findUser.getEmail(), findUser.getPassword(), authorities);
     }
 
-    public Account save(SignUpRequestDto requestDto) {
-        Account account = new Account(requestDto.getNickname(), requestDto.getEmail(), requestDto.getPassword());
+    public Account save(Account account) {
         account.changePassword(passwordEncoder.encode(account.getPassword()));
         return memberRepository.save(account);
     }
