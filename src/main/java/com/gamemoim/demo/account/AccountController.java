@@ -4,6 +4,7 @@ import com.gamemoim.demo.domain.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -23,18 +24,20 @@ public class AccountController {
         webDataBinder.addValidators(signUpValidator);
     }
 
-    @GetMapping("/members/sign-up")
+    @GetMapping("/sign-up")
     public String signUpForm(Model model){
         model.addAttribute(new SignUpRequestDto());
-        return "sign-up";
+        return "account/sign-up";
     }
 
-    @PostMapping("/members/sign-up")
-    public String signUpAccount(@Valid SignUpRequestDto requestDto){
-        Account account = new Account(requestDto.getNickname(), requestDto.getEmail(), requestDto.getPassword());
-        memberService.save(account);
+    @PostMapping("/sign-up")
+    public String signUpAccount(@Valid SignUpRequestDto requestDto, Errors errors){
+        if(errors.hasErrors()){
+            return "account/sign-up";
+        }
 
+        Account newAccount = memberService.createNewAccount(requestDto);
+        memberService.login(newAccount);
         return "redirect:/";
     }
-
 }

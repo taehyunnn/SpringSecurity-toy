@@ -28,8 +28,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-configuration-processor'
+	implementation 'org.springframework.boot:spring-boot-devtools'
 
-	// querydsl 추가g
+	// querydsl 추가
 	implementation 'com.querydsl:querydsl-jpa'
 
 	// 쿼리 파라미터 로그 남기기

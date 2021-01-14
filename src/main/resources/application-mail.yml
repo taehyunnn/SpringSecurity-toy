@@ -1,9 +1,12 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-  profiles:
-    include: mail
-
-app:
-  host: http://localhost:8080
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: neils110@gmail.com
+    password: th942578
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
