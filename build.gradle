@@ -27,8 +27,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-	// querydsl 추가
+	// querydsl 추가g
 	implementation 'com.querydsl:querydsl-jpa'
 
 	// 쿼리 파라미터 로그 남기기
