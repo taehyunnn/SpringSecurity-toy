@@ -24,10 +24,10 @@ class AccountServiceTest {
     @Test
     public void 회원가입() throws Exception{
         //given
-        Account account = new Account("nick", "email", "password");
+        SignUpRequestDto account = new SignUpRequestDto("nick", "email", "password");
 
         //when
-        service.save(account);
+        service.createNewAccount(account);
 
         Account find = service.findByEmail("email");
 
@@ -38,15 +38,14 @@ class AccountServiceTest {
     @Test
     public void 중복회원가입() throws Exception{
         //given
-        Account account = new Account("nick", "email", "password");
+        SignUpRequestDto account = new SignUpRequestDto("nick", "email", "password");
+        SignUpRequestDto account2 = new SignUpRequestDto("nick", "email", "password");
 
-        //given
-        Account account2 = new Account("nick", "email", "password");
 
 
         //when
-        service.save(account);
-        service.save(account2);
+        service.createNewAccount(account);
+        service.createNewAccount(account2);
         //then
 
     }

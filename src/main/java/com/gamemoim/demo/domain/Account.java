@@ -1,18 +1,17 @@
 package com.gamemoim.demo.domain;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
 @EqualsAndHashCode(of = "id")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account extends BaseTimeEntity{
 
     @Id
@@ -27,6 +26,12 @@ public class Account extends BaseTimeEntity{
     private String email;
 
     private String password;
+
+    private boolean emailVerified;
+
+    private String emailCheckToken;
+
+    private LocalDateTime emailCheckTokenGeneratedAt;
 
     @OneToMany(mappedBy = "account")
     private List<GroupManager> groupManagers = new ArrayList<>();
@@ -46,6 +51,11 @@ public class Account extends BaseTimeEntity{
 
     public void changePassword(String password){
         this.password = password;
+    }
+
+    public void generateEmailCheckToken() {
+        this.emailCheckToken = UUID.randomUUID().toString();
+        this.emailCheckTokenGeneratedAt = LocalDateTime.now();
     }
 
 }
