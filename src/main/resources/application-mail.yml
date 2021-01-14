@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  profiles:
+    include: mail
+
+app:
+  host: http://localhost:8080
