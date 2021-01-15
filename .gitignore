@@ -40,4 +40,4 @@ out/
 src/main/resources/static/node_modules
 src/main/resources/static/node
 
-application-mail.yml
+#application-mail.yml
