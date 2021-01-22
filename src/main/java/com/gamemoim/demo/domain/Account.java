@@ -65,4 +65,16 @@ public class Account extends BaseTimeEntity{
         joinedAt = LocalDateTime.now();
     }
 
+    public boolean isValidToken(String token) {
+        return this.emailCheckToken.equals(token);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", emailVerified=" + emailVerified +
+                '}';
+    }
 }
