@@ -33,6 +33,8 @@ public class Account extends BaseTimeEntity{
 
     private LocalDateTime emailCheckTokenGeneratedAt;
 
+    private LocalDateTime joinedAt;
+
     @OneToMany(mappedBy = "account")
     private List<GroupManager> groupManagers = new ArrayList<>();
 
@@ -56,6 +58,11 @@ public class Account extends BaseTimeEntity{
     public void generateEmailCheckToken() {
         this.emailCheckToken = UUID.randomUUID().toString();
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();
+    }
+
+    public void completeSignUp() {
+        emailVerified = true;
+        joinedAt = LocalDateTime.now();
     }
 
 }

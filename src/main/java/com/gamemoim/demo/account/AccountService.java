@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class AccountService implements UserDetailsService {
 
-    private final AccountRepository memberRepository;
+    private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
     private final TemplateEngine templateEngine;
@@ -35,7 +36,7 @@ public class AccountService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Account findUser = memberRepository.findByEmail(email);
+        Account findUser = accountRepository.findByEmail(email);
 
         /**
          * todo : db에서 권한 정보 가져와서 적용하는 걸로 리팩토링
@@ -47,21 +48,26 @@ public class AccountService implements UserDetailsService {
     }
 
     public Account findByEmail(String email){
-        return memberRepository.findByEmail(email);
+        return accountRepository.findByEmail(email);
     }
 
     public void login(Account account) {
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(account,
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(account,account.getPassword(),
                 List.of(new SimpleGrantedAuthority("ROLE_USER")));
         SecurityContextHolder.getContext().setAuthentication(token);
     }
 
-    public Account createNewAccount(SignUpRequestDto requestDto) {
+    public Account createProcessNewAccount(@Valid SignUpRequestDto requestDto) {
+        Account account = saveNewAccount(requestDto);
+        sendSignUpConfirmEmail(account);
+        return account;
+    }
+
+    private Account saveNewAccount(@Valid SignUpRequestDto requestDto) {
         Account account = new Account(requestDto.getNickname(), requestDto.getEmail(), requestDto.getPassword());
         account.changePassword(passwordEncoder.encode(account.getPassword()));
         account.generateEmailCheckToken();
-        memberRepository.save(account);
-        sendSignUpConfirmEmail(account);
+        accountRepository.save(account);
         return account;
     }
 
