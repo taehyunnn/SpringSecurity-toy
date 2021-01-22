@@ -27,7 +27,7 @@ class AccountServiceTest {
         SignUpRequestDto account = new SignUpRequestDto("nick", "email", "password");
 
         //when
-        service.createNewAccount(account);
+        service.createProcessNewAccount(account);
 
         Account find = service.findByEmail("email");
 
@@ -44,8 +44,8 @@ class AccountServiceTest {
 
 
         //when
-        service.createNewAccount(account);
-        service.createNewAccount(account2);
+        service.createProcessNewAccount(account);
+        service.createProcessNewAccount(account2);
         //then
 
     }

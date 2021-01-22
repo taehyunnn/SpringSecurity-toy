@@ -19,7 +19,7 @@ public class AccountController {
     private final AccountService memberService;
     private final SignUpValidator signUpValidator;
 
-    @InitBinder("SignUpRequestDto")
+    @InitBinder("signUpRequestDto")
     public void initBinder(WebDataBinder webDataBinder){
         webDataBinder.addValidators(signUpValidator);
     }
@@ -36,8 +36,10 @@ public class AccountController {
             return "account/sign-up";
         }
 
-        Account newAccount = memberService.createNewAccount(requestDto);
+        Account newAccount = memberService.createProcessNewAccount(requestDto);
         memberService.login(newAccount);
         return "redirect:/";
     }
+
+
 }

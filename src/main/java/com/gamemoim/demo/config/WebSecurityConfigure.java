@@ -17,7 +17,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/","/sign-up").permitAll()
+                    .antMatchers("/","login","/sign-up","/check-email", "/check-email-token").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -38,6 +38,6 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .mvcMatchers("/node_modules/**")
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()); // static resource는 security filter를 적용하지 마라고 설정
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()); // static resource는 security filter를 적용하지 말라고 설정
     }
 }
