@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="editor-script">
+    <script src="/node_modules/gamemoim/dist/summernote-bs4.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            $('.editor').summernote({
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Noto Sans KR', 'Merriweather'],
+                placeholder: '그룹에 대해 자세히 적어 주세요.',
+                tabsize: 2,
+                height: 300
+            });
+        });
+    </script>
+</div>
+
+<!--<div th:fragment="group-banner" th:if="${group.useBanner}" class="row" id="study-logo">-->
+<!--    <img th:src="${group.image}"/>-->
+<!--</div>-->
+
+<div th:fragment="study-info">
+    <div class="row pt-4 text-left justify-content-center bg-light">
+        <div class="col-6">
+            <a href="#" class="text-decoration-none" th:href="@{'/study/' + ${group.path}}">
+                <span class="h2" th:text="${group.name}">그룹 이름</span>
+            </a>
+        </div>
+        <div class="col-4 text-right justify-content-end">
+<!--                <span th:if="${!group.published}"-->
+<!--                      class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom"-->
+<!--                      title="스터디 공개 준비중">-->
+<!--                    <button class="btn btn-primary btn-sm" style="pointer-events: none;" type="button" disabled>DRAFT</button>-->
+<!--                </span>-->
+<!--            <span th:if="${study.closed}"-->
+<!--                  class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="스터디 종료함">-->
+<!--                    <button class="btn btn-primary btn-sm" style="pointer-events: none;" type="button" disabled>CLOSED</button>-->
+<!--                </span>-->
+<!--            <span th:if="${!study.recruiting}"-->
+<!--                  class="d-inline-block ml-1" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="팀원 모집중 아님">-->
+<!--                    <button class="btn btn-primary btn-sm" style="pointer-events: none;" type="button" disabled>OFF</button>-->
+<!--                </span>-->
+            <span sec:authorize="isAuthenticated()" th:if="${group.isAccess(#authentication.principal)}"
+                  class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-primary" th:href="@{'/group/' + ${group.path} + '/join'}">
+                        스터디 가입
+                    </a>
+                    <a class="btn btn-outline-primary" th:href="@{'/group/' + ${group.path} + '/members'}"
+                       th:text="${group.members.size()}">1</a>
+                </span>
+            <span sec:authorize="isAuthenticated()"
+                  th:if="${group.isMember(#authentication.principal)}" class="btn-group" role="group">
+                    <a class="btn btn-outline-warning" th:href="@{'/group/' + ${group.path} + '/leave'}">
+                        스터디 탈퇴
+                    </a>
+                    <a class="btn btn-outline-primary" th:href="@{'/group/' + ${group.path} + '/members'}"
+                       th:text="${group.members.size()}">1</a>
+                </span>
+        </div>
+    </div>
+    <div class="row justify-content-center bg-light">
+        <div class="col-10">
+            <p class="lead" th:text="${group.description}"></p>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="group-menu (groupMenu)" class="row px-3 justify-content-center bg-light">
+    <nav class="col-10 nav nav-tabs">
+        <a class="nav-item nav-link" href="#" th:classappend="${groupMenu == 'info'}? active" th:href="@{'/group/' + ${group.path}}">
+            <i class="fa fa-info-circle"></i> 소개
+        </a>
+        <a class="nav-item nav-link" href="#" th:classappend="${groupMenu == 'members'}? active" th:href="@{'/group/' + ${group.path} + '/members'}">
+            <i class="fa fa-user"></i> 구성원
+        </a>
+        <a class="nav-item nav-link" th:classappend="${groupMenu == 'events'}? active" href="#" th:href="@{'/group/' + ${group.path} + '/events'}">
+            <i class="fa fa-calendar"></i> 모임
+        </a>
+        <a sec:authorize="isAuthenticated()" th:if="${group.isManager(#authentication.principal)}"
+           class="nav-item nav-link" th:classappend="${groupMenu == 'settings'}? active" href="#" th:href="@{'/group/' + ${group.path} + '/settings/description'}">
+            <i class="fa fa-cog"></i> 설정
+        </a>
+    </nav>
+</div>
+
+<div th:fragment="member-list (members, isManager)" class="row px-3 justify-content-center">
+    <ul class="list-unstyled col-10">
+        <li class="media mt-3" th:each="member:${members}">
+            <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${member.nickname}" width="64" height="64" class="rounded border bg-light mr-3"></svg>
+            <img th:if="${!#strings.isEmpty(member?.profileImage)}" th:src="${member?.profileImage}" width="64" height="64" class="rounded border mr-3"/>
+            <div class="media-body">
+                <h5 class="mt-0 mb-1"><span th:text="${member.nickname}"></span> <span th:if="${isManager}" class="badge badge-primary">관리자</span></h5>
+            </div>
+        </li>
+    </ul>
+</div>
+<script th:fragment="tooltip" type="application/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+</html>

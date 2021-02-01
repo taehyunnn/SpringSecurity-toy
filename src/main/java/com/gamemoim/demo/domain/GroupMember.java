@@ -32,6 +32,6 @@ public class GroupMember {
         this.account = account;
         this.group = group;
         account.getGroupMembers().add(this);
-        group.getGroupMembers().put(this.getId(), this);
+        group.getMembers().put(this.getId(), this);
     }
 }

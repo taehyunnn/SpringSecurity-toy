@@ -7,6 +7,8 @@ import com.gamemoim.demo.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class GroupService {
@@ -25,5 +27,4 @@ public class GroupService {
     public Group searchGroupByName(String name){
         return groupRepository.findByName(name);
     }
-
 }
