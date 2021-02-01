@@ -31,6 +31,6 @@ public class GroupManager {
         this.account = account;
         this.group = group;
         account.getGroupManagers().add(this);
-        group.getGroupManagers().put(this.getId(), this);
+        group.getManagers().put(this.getId(), this);
     }
 }

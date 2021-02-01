@@ -19,7 +19,7 @@ public class GroupValidator implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        Group group = (Group) target;
+        GroupCreateRequestDto group = (GroupCreateRequestDto) target;
 
         if(repository.existsByName(group.getName())){
             errors.rejectValue("name","invalid.name",new Object[]{((Group) target).getName()}, "이미 존재하는 이름입니다");
